@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test commento</title>
+	<!-- Load Commento's js library -->
+	<script src="/assets/commento.js"></script>
+</head>
+<body>
+<div id="commento"></div>
+<!-- Call init() function -->
+<script>
+window.onload = function() {
+    Commento.init({
+        serverUrl: "http://127.0.0.1:5000",
+    });
+}
+</script>
+</body>
+</html>
