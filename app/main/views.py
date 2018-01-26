@@ -10,7 +10,7 @@ from urllib import unquote
 
 @main.route('/')
 def index():
-    return "H"
+    return redirect("/assets/index.html")
 
 @main.route('/create', methods=['GET', 'POST'])
 def createComment():

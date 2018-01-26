@@ -38,7 +38,7 @@ class Comment(db.Model):
             'name': self.author_name,
             'author_email': self.author_email,
             'author_site': self.author_site,
-            'parent_id': self.parent_id
+            'parent': self.parent_id
         }
         return json_comment
 

@@ -16,3 +16,11 @@ def make_shell_context():
 @app.cli.command()
 def deploy():
 	db.create_all()
+
+
+def main():
+	app.run()
+
+
+if __name__ == '__main__':
+	main()
