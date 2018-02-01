@@ -12,7 +12,25 @@ from urllib import unquote
 def index():
     return redirect("/assets/index.html")
 
+import json
+from functools import wraps
+from flask import redirect, request, current_app
+
+def support_jsonp(f):
+    """Wraps JSONified output for JSONP"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        callback = request.args.get('callback', False)
+        if callback:
+            content = str(callback) + '(' + str(f().data) + ')'
+            return current_app.response_class(content, mimetype='application/json')
+        else:
+            return f(*args, **kwargs)
+    return decorated_function
+
+
 @main.route('/create', methods=['GET', 'POST'])
+@support_jsonp
 def createComment():
     url = request.values.get("url", '')
     comment = request.values.get("comment", '')
@@ -36,12 +54,13 @@ def createComment():
             parent_id=parent_id)
     db.session.add(comm)
     db.session.commit()
-    return "{successful}"
+    return jsonify({"success":"true"})
 
 
 
 
 @main.route('/get', methods=['GET', 'POST'])
+@support_jsonp
 def getComment():
     url = request.values.get("url", '')
     if url == '':
