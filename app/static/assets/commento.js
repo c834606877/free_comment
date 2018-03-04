@@ -555,17 +555,17 @@
     Commento.version = '0.2.0';
 
     Commento.init = function(configuration) {
-        _serverUrl = configuration.serverUrl || _serverUrl;
+        var _serverUrl_ = configuration.serverUrl || _serverUrl;
         _honeypot = configuration.honeypot || _honeypot;
-        _showdownUrl = configuration.showdownUrl || (_serverUrl + _showdownUrl);
-        _commentoCssUrl = configuration.commentoCssUrl || (_serverUrl + _commentoCssUrl);
+        var _showdownUrl_ = configuration.showdownUrl || (_serverUrl_ + _showdownUrl);
+        _commentoCssUrl = configuration.commentoCssUrl || (_serverUrl_ + _commentoCssUrl);
 
         _api.get = _serverUrl + '/get';
         _api.create = _serverUrl + '/create';
 
         loadCSS(_commentoCssUrl);
 
-        loadJS(_showdownUrl, function() {
+        loadJS(_showdownUrl_, function() {
             _showdownConverter = new showdown.Converter();
 
             var commento = $(COMMENTO_ID);

@@ -8,6 +8,7 @@ from ..models import Comment
 
 from urllib import unquote
 
+
 @main.route('/')
 def index():
     return redirect("/assets/index.html")
@@ -40,6 +41,11 @@ def createComment():
     if url == '' or comment == '' or parent_id == '':
         return 'url, comment, parent are needed', 500
 
+    print url
+    url = unquote(url)
+    print "unquote: ", url
+
+
 
     try:
         parent_id = int(parent_id)
@@ -47,8 +53,8 @@ def createComment():
         parent_id = -1
 
     if parent_id != -1:
-        Comment.query.filter_by(url=url)\
-            .filter_by(parent_id=parent_id).first_or_404();
+        Comment.query.filter_by(id=parent_id) \
+                   .filter_by(url=url).first_or_404();
 
     comm = Comment(url=url,body=comment, author_name=name,\
             parent_id=parent_id)
